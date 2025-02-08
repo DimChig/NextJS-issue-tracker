@@ -1,5 +1,5 @@
 import { Text } from "@radix-ui/themes";
-import { PropsWithChildren, ReactNode } from "react";
+import { PropsWithChildren } from "react";
 
 const ErrorMessage = ({ children }: PropsWithChildren) => {
   if (!children) return null;
