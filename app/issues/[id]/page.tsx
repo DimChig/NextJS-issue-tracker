@@ -4,21 +4,12 @@ import { notFound } from "next/navigation";
 import EditIssueButton from "./EditIssueButton";
 import IssueDetails from "./IssueDetails";
 
-interface Props {
-  params: { id: string };
-}
-
-const IssueDetailPage = async ({ params }: Props) => {
-  const { id } = await params; // No need to await params
-
-  const issueId = parseInt(id);
-
-  // Check if issueId is a valid number (not NaN)
-  if (isNaN(issueId)) notFound();
+const IssueDetailPage = async (props: { params: Promise<{ id: string }> }) => {
+  const { id } = await props.params;
 
   const issue = await prisma.issue.findUnique({
     where: {
-      id: issueId,
+      id: parseInt(id),
     },
   });
 
