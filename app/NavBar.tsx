@@ -1,11 +1,13 @@
 "use client";
 
+import { Box } from "@radix-ui/themes";
+import classnames from "classnames";
+import { Session } from "next-auth";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { AiFillBug } from "react-icons/ai";
-import classnames from "classnames";
 
-const NavBar = () => {
+const NavBar = ({ session }: { session: Session | null }) => {
   const currentPath = usePathname();
 
   const links = [
@@ -33,6 +35,10 @@ const NavBar = () => {
           </li>
         ))}
       </ul>
+      <Box>
+        {session && <Link href={"/api/auth/signout"}>Sign Out</Link>}
+        {!session && <Link href={"/api/auth/signin"}>Sign In</Link>}
+      </Box>
     </nav>
   );
 };

@@ -3,7 +3,7 @@ import "@radix-ui/themes/styles.css";
 import type { Metadata } from "next";
 import { Inter } from "next/font/google";
 import "./globals.css";
-import NavBar from "./NavBar";
+import ServerNavBar from "./ServerNavBar";
 import "./theme-config.css";
 
 const inter = Inter({
@@ -26,7 +26,7 @@ export default function RootLayout({
     <html lang="en">
       <body className={`${inter.variable} antialiased`}>
         <Theme>
-          <NavBar />
+          <ServerNavBar />
           <main className="p-5">
             <Container>{children}</Container>
           </main>
