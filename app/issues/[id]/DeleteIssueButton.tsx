@@ -9,7 +9,7 @@ import { useState } from "react";
 
 const DeleteIssueButton = ({ issueId }: { issueId: number }) => {
   const router = useRouter();
-  const [error, setError] = useState(false);
+  const [error, setError] = useState("");
 
   const deleteIssue = async () => {
     try {
@@ -17,7 +17,7 @@ const DeleteIssueButton = ({ issueId }: { issueId: number }) => {
       router.push("/issues");
       router.refresh();
     } catch (error) {
-      setError(true);
+      setError("" + error);
     }
   };
 
@@ -53,17 +53,17 @@ const DeleteIssueButton = ({ issueId }: { issueId: number }) => {
         </AlertDialog.Portal>
       </AlertDialog.Root>
 
-      <AlertDialog.Root open={error}>
+      <AlertDialog.Root open={error.length > 0}>
         <AlertDialog.Portal>
           <AlertDialog.Overlay className="AlertDialogOverlay" />
           <AlertDialog.Content className="AlertDialogContent">
             <AlertDialog.Title className="AlertDialogTitle">
-              Error
+              Error: {error}
             </AlertDialog.Title>
             <AlertDialog.Description className="AlertDialogDescription">
               This issue could not be deleted.
             </AlertDialog.Description>
-            <button className="Button mauve" onClick={() => setError(false)}>
+            <button className="Button mauve" onClick={() => setError("")}>
               OK
             </button>
           </AlertDialog.Content>
