@@ -2,7 +2,6 @@
 
 import { Button } from "@radix-ui/themes";
 import { AlertDialog } from "radix-ui";
-import "@/app/style.css";
 import axios from "axios";
 import { useRouter } from "next/navigation";
 import { useState } from "react";

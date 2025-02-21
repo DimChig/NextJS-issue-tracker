@@ -38,7 +38,6 @@ const IssueForm = ({ issue }: { issue?: Issue }) => {
       router.refresh();
     } catch (error) {
       setIsSubmitting(false);
-      console.log(error);
       setError("An unexcepted error occured.");
     }
   });
