@@ -6,17 +6,21 @@ import "@/app/style.css";
 import axios from "axios";
 import { useRouter } from "next/navigation";
 import { useState } from "react";
+import { Spinner } from "@/app/components";
 
 const DeleteIssueButton = ({ issueId }: { issueId: number }) => {
   const router = useRouter();
   const [error, setError] = useState("");
+  const [isDeleting, setDeleting] = useState(false);
 
   const deleteIssue = async () => {
     try {
+      setDeleting(true);
       await axios.delete("/api/issues/" + issueId);
       router.push("/issues");
       router.refresh();
     } catch (error) {
+      setDeleting(false);
       setError("" + error);
     }
   };
@@ -25,7 +29,12 @@ const DeleteIssueButton = ({ issueId }: { issueId: number }) => {
     <>
       <AlertDialog.Root>
         <AlertDialog.Trigger asChild>
-          <Button color="red">Delete Issue</Button>
+          <div>
+            <Button color="red" className="w-full" disabled={isDeleting}>
+              Delete Issue
+              {isDeleting && <Spinner />}
+            </Button>
+          </div>
         </AlertDialog.Trigger>
         <AlertDialog.Portal>
           <AlertDialog.Overlay className="AlertDialogOverlay" />

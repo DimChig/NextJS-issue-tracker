@@ -1,6 +1,5 @@
 import { issueSchema } from "@/app/validationSchemas";
 import prisma from "@/lib/prisma";
-import { notFound } from "next/navigation";
 import { NextRequest, NextResponse } from "next/server";
 
 type Params = Promise<{ id: string }>;
