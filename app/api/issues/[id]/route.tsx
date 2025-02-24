@@ -1,6 +1,8 @@
 import { issueSchema } from "@/app/validationSchemas";
 import prisma from "@/lib/prisma";
+import { getServerSession } from "next-auth";
 import { NextRequest, NextResponse } from "next/server";
+import { authOptions } from "../../auth/[...nextauth]/route";
 
 type Params = Promise<{ id: string }>;
 
@@ -8,6 +10,13 @@ export async function PATCH(
   request: NextRequest,
   segmentData: { params: Params }
 ) {
+  const session = await getServerSession(authOptions);
+  if (!session)
+    return NextResponse.json(
+      { message: "You must be logged in." },
+      { status: 401 }
+    );
+
   const params = await segmentData.params;
   const issueId = params.id;
 
@@ -40,6 +49,13 @@ export async function DELETE(
   request: NextRequest,
   segmentData: { params: Params }
 ) {
+  const session = await getServerSession(authOptions);
+  if (!session)
+    return NextResponse.json(
+      { message: "You must be logged in." },
+      { status: 401 }
+    );
+
   const params = await segmentData.params;
   const issueId = parseInt(params.id);
 
