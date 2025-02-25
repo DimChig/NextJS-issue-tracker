@@ -6,6 +6,7 @@ import "./globals.css";
 import ServerNavBar from "./ServerNavBar";
 import "./theme-config.css";
 import "@/app/style.css";
+import QueryClientProvider from "./QueryClientProvider";
 
 const inter = Inter({
   subsets: ["latin"],
@@ -26,12 +27,14 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body className={`${inter.variable} antialiased`}>
-        <Theme>
-          <ServerNavBar />
-          <main className="p-5">
-            <Container>{children}</Container>
-          </main>
-        </Theme>
+        <QueryClientProvider>
+          <Theme>
+            <ServerNavBar />
+            <main className="p-5">
+              <Container>{children}</Container>
+            </main>
+          </Theme>
+        </QueryClientProvider>
       </body>
     </html>
   );
